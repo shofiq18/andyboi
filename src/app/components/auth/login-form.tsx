@@ -2,10 +2,13 @@
 
 "use client";
 
+import { setUser } from "@/feature/user/userSlice";
+import { useSignInMutation } from "@/redux/api/authApi";
 // import { setUser } from "@/feature/user/userSlice";
 // import { useSignInMutation } from "@/redux/api/auth/authApi";
 import Image from "next/image";
 import { useState, FormEvent } from "react";
+import { useDispatch } from "react-redux";
  // Adjust path to your baseApi
 // import { useDispatch } from "react-redux";
  // Adjust path to your userSlice
@@ -19,31 +22,31 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
-  // const [signIn, { isLoading }] = useSignInMutation(); // Hook for sign-in mutation
-  // const dispatch = useDispatch();
+  const [signIn, { isLoading }] = useSignInMutation(); // Hook for sign-in mutation
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrors({}); // Clear previous errors
 
-    // try {
-    //   // Send sign-in data to the backend
-    //   const response = await signIn({ email, password }).unwrap();
+    try {
+      // Send sign-in data to the backend
+      const response = await signIn({ email, password }).unwrap();
 
-    //   // Assuming the backend returns { user: { id, name, email, role }, token }
-    //   dispatch(setUser({ user: response.user, token: response.token }));
-    //   console.log("Sign-in successful:", response);
+      // Assuming the backend returns { user: { id, name, email, role }, token }
+      // dispatch(setUser({ user: response.user, token: response.token }));
+      console.log("Sign-in successful:", response);
 
-    //   // Optionally, redirect to dashboard or home page
-    //   // Example: router.push("/dashboard"); // If using Next.js router
-    // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    // } catch (error: any) {
-    //   // Handle backend errors
-    //   const errorMessage =
-    //     error.data?.message || "Sign-in failed. Please check your credentials.";
-    //   setErrors({ general: errorMessage });
-    //   console.error("Sign-in failed:", error);
-    // }
+      // Optionally, redirect to dashboard or home page
+      // Example: router.push("/dashboard"); // If using Next.js router
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      // Handle backend errors
+      const errorMessage =
+        error.data?.message || "Sign-in failed. Please check your credentials.";
+      setErrors({ general: errorMessage });
+      console.error("Sign-in failed:", error);
+    }
   };
 
   return (
