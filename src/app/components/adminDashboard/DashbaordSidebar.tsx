@@ -6,10 +6,6 @@ import { usePathname } from "next/navigation"
 import {
   LayoutDashboard,
   Building2,
-  Users,
-  Ban,
-  ShieldCheck,
-  CreditCard,
   Receipt,
   Settings,
   LogOut,

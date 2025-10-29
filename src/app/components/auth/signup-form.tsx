@@ -409,6 +409,7 @@
 import { useSignUpMutation } from "@/redux/api/authApi";
 import Image from "next/image";
 import { useState, FormEvent } from "react";
+import toast from "react-hot-toast";
  // Adjust path as needed
 
 // Define TypeScript interfaces
@@ -452,13 +453,14 @@ const SignUpForm: React.FC = () => {
     console.log("Form submitted:", formData);
 
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const response = await signUp({
         name: formData.name,
         email: formData.email,
         password: formData.password,
         confirmPassword: formData.confirmPassword,
       }).unwrap();
-      console.log("Signup successful:", response);
+      toast.success("Signup successfully:");
       // Reset form after successful submission
       setFormData({
         name: "",
@@ -725,12 +727,6 @@ const SignUpForm: React.FC = () => {
               className="w-full bg-[#E5B96C] py-3 px-4 rounded-lg cursor-pointer font-semibold hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition disabled:bg-teal-400"
             >
               {isLoading ? "Creating Account..." : "Create Account"}
-            </button>
-            <button
-              type="button"
-              className="w-full border border-green-200 py-3 px-4 rounded-lg cursor-pointer font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition disabled:bg-teal-400"
-            >
-              Guest mode
             </button>
           </form>
           <div className="flex justify-center">

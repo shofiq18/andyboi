@@ -235,8 +235,10 @@
 
 
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState,  } from 'react';
 import { ChevronLeft, ChevronRight, CheckCircle, Download, RotateCcw } from 'lucide-react';
+import { useGetMe } from '@/hooks/useGetMe';
+import Image from 'next/image';
 
 interface Question {
   id: number;
@@ -315,6 +317,8 @@ export default function LifeStoryApp() {
   const [showLoading, setShowLoading] = useState(false);
   const [showCompletion, setShowCompletion] = useState(false);
   const [selectedWordCount, setSelectedWordCount] = useState<number>(1500);
+  const {user} = useGetMe();
+  
 
   const currentQuestion = questions[currentQuestionIndex];
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
@@ -419,7 +423,14 @@ export default function LifeStoryApp() {
       <div className="bg-[#F7F4EF] min-h-screen flex items-center justify-center p-4">
         <div className="p-8 max-w-2xl w-full">
           <div className="mb-8">
-            <img src="/api/placeholder/120/40" alt="Your Story" className="mb-6" />
+            <Image
+              src="/logo.svg"
+              alt="hero background"
+              width={24}
+              height={24}
+              className=" w-full"
+            
+            />
           </div>
 
           <h2 className="text-4xl font-bold text-[#314B79] mb-12 text-center">
@@ -568,7 +579,7 @@ export default function LifeStoryApp() {
               </label>
               <input
                 type="text"
-                value={name}
+                value={user?.name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full px-4 py-3 border border-slate-300 bg-[#EAEAEA] rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Enter your name"

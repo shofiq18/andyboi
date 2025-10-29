@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Mail, Phone, MapPin, EqualApproximatelyIcon } from 'lucide-react';
+import { Mail, Phone, MapPin,  } from 'lucide-react';
 
 const Footer = () => {
   return (
