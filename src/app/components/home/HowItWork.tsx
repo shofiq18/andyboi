@@ -3,7 +3,7 @@ import React from "react";
 const HowItWorks: React.FC = () => {
   return (
     <section className="bg-white py-16 px-4">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4">
         {/* Section Title */}
         <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-16">
           How It Works
@@ -38,7 +38,7 @@ const HowItWorks: React.FC = () => {
             <div className="p-10 hover:border-[#314B79] transition-colors relative">
               <div className="absolute top-0 inset-x-10 h-0.5 bg-gradient-to-r from-transparent via-[#314B79] to-transparent"></div>
               <div className="absolute bottom-0 inset-x-10 h-0.5 bg-gradient-to-r from-transparent via-[#314B79] to-transparent"></div>
-              <div className="-ml-8">
+              <div className="">
               <span className="text-6xl font-bold text-[#314B79]">02</span>
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -58,7 +58,7 @@ const HowItWorks: React.FC = () => {
             <div className="p-10 hover:border-[#314B79] transition-colors relative">
               <div className="absolute top-0 inset-x-10 h-0.5 bg-gradient-to-r from-transparent via-[#314B79] to-transparent"></div>
               <div className="absolute bottom-0 inset-x-10 h-0.5 bg-gradient-to-r from-transparent via-[#314B79] to-transparent"></div>
-              <div className="-ml-8">
+              <div className="">
               <span className="text-6xl font-bold text-[#314B79]">03</span>
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4">

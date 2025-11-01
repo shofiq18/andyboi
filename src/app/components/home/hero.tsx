@@ -43,9 +43,8 @@ const Hero: React.FC = () => {
           priority
         />
       </div>
-
       {/* Main Content */}
-      <div className="relative  left-10 flex-1 flex items-center -inset-20 z-10 justify-center px-4 ">
+      <div className="relative  left-0 flex-1 flex items-center -inset-20 z-10 justify-center px-4 ">
         {/* Right side - Text Content */}
         <div className="text-center lg:text-left space-y-6">
           <div>
