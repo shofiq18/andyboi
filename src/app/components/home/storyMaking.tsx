@@ -175,7 +175,7 @@ export default function LifeStoryApp() {
 
   if (showIntro) {
     return (
-      <div className="bg-[#F7F4EF] min-h-screen flex items-center justify-center p-4">
+      <div className="bg-[#F7F4EF] md:h-[calc(89vh-4rem)] flex items-center justify-center p-4">
         <div className="p-8 max-w-2xl w-full">
           <div className="mb-8">
             <Image
@@ -240,7 +240,7 @@ export default function LifeStoryApp() {
             </button>
           </div>
 
-          <div className="mt-8 text-center space-y-2">
+          <div className="sm:mt-4 2xl:mt-8 text-center space-y-2">
             <p className="text-lg text-slate-600">150 words per question</p>
             <p className="text-lg text-slate-600">Answer in as much detail as you can within the word limit</p>
           </div>
@@ -250,7 +250,7 @@ export default function LifeStoryApp() {
   }
 
   return (
-    <div className="bg-[#F7F4EF] min-h-screen flex items-center justify-center p-4">
+    <div className="bg-[#F7F4EF] md:h-[calc(89vh-4rem)] flex items-center justify-center p-4">
       <div className="p-8 max-w-4xl w-full">
         <div className="mb-6">
           <Image
@@ -312,7 +312,7 @@ export default function LifeStoryApp() {
               onChange={(e) => handleAnswerChange(e.target.value)}
               placeholder={currentQuestion.placeholder}
               className="w-full px-4 py-3 border border-slate-300 bg-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-              rows={8}
+              rows={4}
             />
           </div>
         </div>
@@ -348,10 +348,6 @@ export default function LifeStoryApp() {
           <p className="mb-2">Skipped: {skippedCount} / 5</p>
           <p>You can skip up to 5 questions. Remaining required: {remainingRequired > 0 ? remainingRequired : 0}</p>
         </div>
-      </div>
-
-      <div className="fixed bottom-4 right-4 text-xs text-slate-500">
-        © 2025 Once Upon a Life. <span className="font-semibold text-blue-900">Bookends Productions.</span>
       </div>
     </div>
   );
