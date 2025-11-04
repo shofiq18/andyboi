@@ -1,6 +1,6 @@
 import baseApi from "./baseApi";
 
-type Plan = {
+ export type Plan = {
   id: string;
   name: string;
   words: number;
@@ -16,11 +16,15 @@ type PlanResponse = {
   data: Plan;
 };
 
+
 type PlansListResponse = {
   success: boolean;
   message?: string;
   data: Plan[];
 };
+
+
+
 
 type CreatePlanRequest = {
   name: string;
@@ -45,9 +49,9 @@ type DeletePlanResponse = {
 export const planApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // Get all plans
-    getAllPlans: builder.query<PlansListResponse, void>({
+    getAllAdminPlans: builder.query<PlansListResponse, void>({
       query: () => ({
-        url: "/plans",
+        url: "/plans/admin",
         method: "GET",
       }),
       providesTags: ["Plan"],
@@ -94,7 +98,7 @@ export const planApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useGetAllPlansQuery,
+  useGetAllAdminPlansQuery,
   useGetPlanByIdQuery,
   useCreatePlanMutation,
   useUpdatePlanMutation,
