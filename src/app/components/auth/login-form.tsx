@@ -238,13 +238,14 @@
 "use client";
 
 import { setCredentials, setGuestSession } from "@/feature/user/userSlice";
+import { useGetMe } from "@/hooks/useGetMe";
 import {
   useCreateGuestSessionMutation,
   useSignInMutation,
 } from "@/redux/api/authApi";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 
@@ -268,6 +269,8 @@ export default function LoginForm() {
   const [signIn, { isLoading }] = useSignInMutation();
   const dispatch = useDispatch();
   const router = useRouter();
+  const { user } = useGetMe();
+  console.log("user from login form", user);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -345,11 +348,22 @@ export default function LoginForm() {
     }
   };
 
+ 
+
+  // Add inside LoginForm component
+  useEffect(() => {
+    if (user?.role === "ADMIN") {
+      router.push("/dashboard");
+    } else if (user?.role === "USER") {
+      router.push("/");
+    }
+  }, [user, router]);
+
   return (
-    <div className="min-h-screen bg-[#F7F4EF] flex items-center justify-center p-4">
+    <div className="md:h-[calc(84vh-1rem)] bg-[#F7F4EF] flex items-center justify-center p-4">
       <div className="max-w-6xl w-full grid md:grid-cols-2 gap-8 overflow-hidden">
         {/* Left: Illustration (hidden on mobile) */}
-        <div className="hidden md:flex items-center justify-center p-8">
+        <div className=" md:flex items-center justify-center p-8">
           <Image
             src="/login.svg"
             alt="Login illustration"
@@ -360,7 +374,7 @@ export default function LoginForm() {
         </div>
 
         {/* Right: Form */}
-        <div className="p-6 mx-12 my-12 flex flex-col border border-gray-200 rounded-2xl justify-center">
+        <div className="p-6 md:mx-12 my-12 flex flex-col border border-gray-300 rounded-2xl justify-center">
           <div className="flex justify-center mb-8">
             <Image src="/logo.svg" alt="Logo" width={139} height={50} />
           </div>
@@ -510,7 +524,7 @@ export default function LoginForm() {
               type="button"
               onClick={handleGuestMode}
               disabled={isGuestLoading}
-              className="w-full border border-green-300 text-green-700 font-semibold py-3 px-4 rounded-lg hover:bg-green-50 transition disabled:opacity-70"
+              className="w-full border border-green-300  font-semibold py-3 px-4 rounded-lg hover:bg-green-50 transition disabled:opacity-70"
             >
               {isGuestLoading ? "Starting..." : "Continue as Guest"}
             </button>

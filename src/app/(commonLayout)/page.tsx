@@ -1,3 +1,4 @@
+import BeforeYouBegin from "../components/home/beforeBeginPage";
 import Hero from "../components/home/hero";
 import HowItWorks from "../components/home/HowItWork";
 import StartStoryPage from "../components/home/startYourStory";

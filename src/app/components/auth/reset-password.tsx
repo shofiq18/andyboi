@@ -358,16 +358,16 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-lg max-w-5xl h-[600px] w-full grid md:grid-cols-2 overflow-hidden">
+    <div className="min-h-screen pb-60 md:pb-0 md:min-h[calc(84vh-4rem)] bg-[#F7F4EF] flex items-center justify-center p-4">
+      <div className=" max-w-5xl h-[600px] w-full grid md:grid-cols-2 ">
         <div className="p-12 flex flex-col justify-center">
           <h2 className="text-4xl font-bold text-gray-900 mb-8">Create New Password</h2>
           <div className="flex justify-center">
-            <Image src="/icon/forgot-password.svg" alt="reset" width={500} height={500} />
+            <Image src="/forgot.svg" alt="reset" width={500} height={500} />
           </div>
         </div>
 
-        <div className="pr-12 flex flex-col justify-center">
+        <div className="p-6 md:mx-12 my-12 md:flex flex-col border border-gray-300 rounded-2xl justify-center">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* New Password */}
             <div>
@@ -383,7 +383,7 @@ export default function ResetPasswordPage() {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="block w-full pl-12 pr-12 py-5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"
+                  className="block w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"
                 />
                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-6 text-sm">
                   {showPassword ? "Hide" : "Show"}
@@ -406,7 +406,7 @@ export default function ResetPasswordPage() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="block w-full pl-12 pr-12 py-5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"
+                  className="block w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"
                 />
               </div>
               {backendErrors.confirmPassword && <p className="mt-1 text-sm text-red-600">{backendErrors.confirmPassword}</p>}
@@ -418,7 +418,7 @@ export default function ResetPasswordPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-8 bg-[#00695C] text-white py-4 rounded-lg font-semibold hover:bg-teal-800 disabled:opacity-70"
+              className="w-full mt-8 bg-[#E5B96C] hover:bg-yellow-500 text-white font-semibold py-3 px-4 rounded-lg transition disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isLoading ? "Resetting..." : "Reset Password"}
             </button>

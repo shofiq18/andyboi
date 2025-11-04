@@ -474,7 +474,7 @@ const SignUpForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F4EF] flex items-center justify-center p-4">
+    <div className="md:h-[calc(84vh-1rem)] bg-[#F7F4EF] flex items-center justify-center p-4">
       <div className="max-w-6xl w-full grid md:grid-cols-2 gap-8 overflow-hidden">
         {/* Left Section - Welcome */}
         <div className="p-4 flex flex-col justify-center">
@@ -482,8 +482,8 @@ const SignUpForm: React.FC = () => {
         </div>
 
         {/* Right Section - Form */}
-        <div className="p-6 mx-12 my-12 flex flex-col border border-gray-200 rounded-2xl justify-center">
-          <div className="flex justify-center my-8">
+        <div className="p-6 md:mx-12 my-12 flex flex-col border border-gray-300 rounded-2xl justify-center">
+          <div className="flex justify-center md:my-4 2xl:my-8">
             <Image src="/logo.svg" alt="login" width={139} height={50} />
           </div>
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -730,7 +730,7 @@ const SignUpForm: React.FC = () => {
             </button>
           </form>
           <div className="flex justify-center">
-            <p className="text-gray-600 mt-8">
+            <p className="text-gray-600 mt-4 2xl:mt-8">
               Already have an account?{" "}
               <a
                 href="/login"

@@ -11,6 +11,7 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
+  Subscript,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -31,6 +32,11 @@ const menuItems = [
     title: "Payments",
     icon: Receipt,
     href: "/dashboard/payments",
+  },
+  {
+    title: "Subscriptions",
+    icon: Subscript,
+    href: "/dashboard/subscriptions",
   },
   {
     title: "Settings",

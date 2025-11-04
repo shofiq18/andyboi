@@ -9,13 +9,14 @@ export const baseApi = createApi({
     prepareHeaders: (headers) => {
       const token = Cookies.get("accessToken");
       if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
+        headers.set("Authorization", token);
       }
       return headers;
     },
+    
   }),
   endpoints: () => ({}),
-  tagTypes: ["User"],
+  tagTypes: ["User", "Plan"],
 });
 
 export default baseApi;

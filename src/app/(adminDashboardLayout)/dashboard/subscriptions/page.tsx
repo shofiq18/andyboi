@@ -1,9 +1,11 @@
-import { SettingsPage } from "@/app/components/adminDashboard/settings";
+
+import SubscriptionPlan from "@/app/components/adminDashboard/subscriptions";
+
 
 const Page = () => {
   return (
     <div className="container mx-auto px-4 py-8 min-h-screen">
-      <SettingsPage />
+      <SubscriptionPlan />
     </div>
   );
 };

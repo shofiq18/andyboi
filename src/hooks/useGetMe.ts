@@ -155,6 +155,7 @@ export const useGetMe = () => {
 
   useEffect(() => {
     const cookieToken = Cookies.get("accessToken");
+    console.log("usegetme cookieToken", cookieToken);
 
     if (user && (accessToken || guestSession)) {
       setIsLoading(false);

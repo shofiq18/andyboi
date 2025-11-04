@@ -113,18 +113,18 @@ export default function ForgetPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-lg max-w-5xl h-[600px] w-full grid md:grid-cols-2 overflow-hidden">
+    <div className="min-h-screen pb-40 md:pb-0 md:h-[calc(84vh-1rem)] bg-[#F7F4EF] flex items-center justify-center p-4">
+      <div className="  max-w-5xl h-[600px] w-full grid md:grid-cols-2 ">
         {/* Left */}
         <div className="p-12 flex flex-col justify-center">
           <h2 className="text-4xl font-bold text-gray-900 mb-8">Forgot Password?</h2>
           <div className="flex justify-center">
-            <Image src="/icon/forgot-password.svg" alt="forgot" width={500} height={500} />
+            <Image src="/forgot.svg" alt="forgot" width={500} height={500} />
           </div>
         </div>
 
         {/* Right */}
-        <div className="pr-12 flex flex-col justify-center">
+        <div className="p-6 md:mx-12 my-12 pb-20 flex flex-col border border-gray-300 rounded-2xl justify-center">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-xl font-medium text-gray-700 mb-2">
@@ -143,7 +143,7 @@ export default function ForgetPasswordPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   required
-                  className="block w-full pl-12 pr-4 py-5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition"
+                  className="block w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition"
                 />
               </div>
             </div>
@@ -151,7 +151,7 @@ export default function ForgetPasswordPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-[#00695C] text-white py-5 text-xl rounded-lg font-semibold hover:bg-teal-800 disabled:opacity-70"
+              className="w-full md:mt-8 2xl:mt-8 bg-[#E5B96C] hover:bg-yellow-500 text-white font-semibold py-3 px-4 rounded-lg transition disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isLoading ? "Sending..." : "Send Code"}
             </button>
@@ -161,3 +161,8 @@ export default function ForgetPasswordPage() {
     </div>
   );
 }
+
+
+
+
+
