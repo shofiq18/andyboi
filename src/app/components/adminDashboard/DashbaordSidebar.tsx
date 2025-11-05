@@ -16,6 +16,8 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/app/lib/utils"
+import { useDispatch } from "react-redux"
+import { logout } from "@/feature/user/userSlice"
 
 const menuItems = [
   {
@@ -46,8 +48,16 @@ const menuItems = [
 ]
 
 export function DashboardSidebar() {
+  const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false)
   const pathname = usePathname()
+
+    const handleLogout = () => {
+      dispatch(logout());
+      // Optionally, you can redirect the user after logout
+      window.location.href = "/login";
+    };
+
 
   return (
     <aside
@@ -97,8 +107,9 @@ export function DashboardSidebar() {
       {/* Logout Button */}
       <div className="p-2 ">
         <button
+          onClick={handleLogout}
           className={cn(
-            "flex items-center gap-3 px-3 py-2.5 rounded-lg text-lg font-medium text-red-700 border border-gray-200 w-full transition-colors",
+            "flex items-center gap-3 px-3 py-2.5 cursor-pointer rounded-lg text-lg font-medium text-red-700 border border-gray-200 w-full transition-colors",
             collapsed && "justify-center",
           )}
         >
