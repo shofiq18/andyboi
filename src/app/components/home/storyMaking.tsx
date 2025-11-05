@@ -176,7 +176,7 @@ export default function LifeStoryApp() {
   if (showIntro) {
     return (
       <div className="bg-[#F7F4EF] md:h-[calc(89vh-4rem)] flex items-center justify-center p-4">
-        <div className="p-8 max-w-2xl w-full">
+        <div className="p-6 max-w-2xl w-full">
           <div className="mb-8">
             <Image
               src="/logo.svg"
@@ -188,7 +188,7 @@ export default function LifeStoryApp() {
           </div>
 
           <div className="text-center mb-8">
-            <h2 className="text-5xl font-bold text-[#314B79] mb-5">Your Life Story</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-[#314B79] mb-5">Your Life Story</h2>
             <p className="text-[#2B2B2B] text-2xl">Share your journey, memories, and wisdom</p>
           </div>
 
@@ -240,7 +240,7 @@ export default function LifeStoryApp() {
             </button>
           </div>
 
-          <div className="sm:mt-4 2xl:mt-8 text-center space-y-2">
+          <div className="mt-4 md:mt-6 2xl:mt-8 text-center space-y-2">
             <p className="text-lg text-slate-600">150 words per question</p>
             <p className="text-lg text-slate-600">Answer in as much detail as you can within the word limit</p>
           </div>

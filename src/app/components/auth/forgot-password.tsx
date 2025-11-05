@@ -113,7 +113,7 @@ export default function ForgetPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen pb-40 md:pb-0 md:h-[calc(84vh-1rem)] bg-[#F7F4EF] flex items-center justify-center p-4">
+    <div className=" pb-40 md:pb-0 md:h-[calc(84vh-1rem)] bg-[#F7F4EF] flex items-center justify-center p-4">
       <div className="  max-w-5xl h-[600px] w-full grid md:grid-cols-2 ">
         {/* Left */}
         <div className="p-12 flex flex-col justify-center">

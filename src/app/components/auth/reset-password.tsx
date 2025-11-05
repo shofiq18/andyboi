@@ -358,8 +358,8 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen pb-60 md:pb-0 md:min-h[calc(84vh-4rem)] bg-[#F7F4EF] flex items-center justify-center p-4">
-      <div className=" max-w-5xl h-[600px] w-full grid md:grid-cols-2 ">
+    <div className="pb-40 md:pb-0 md:h-[calc(84vh-1rem)] bg-[#F7F4EF] flex items-center justify-center p-4">
+      <div className="max-w-5xl h-[600px] w-full grid md:grid-cols-2 ">
         <div className="p-12 flex flex-col justify-center">
           <h2 className="text-4xl font-bold text-gray-900 mb-8">Create New Password</h2>
           <div className="flex justify-center">
