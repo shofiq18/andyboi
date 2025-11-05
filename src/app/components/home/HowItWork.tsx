@@ -2,7 +2,7 @@ import React from "react";
 
 const HowItWorks: React.FC = () => {
   return (
-    <section className="bg-white py-16 px-4">
+    <section className="bg-white md:mt-10 px-4">
       <div className="max-w-7xl mx-auto px-4">
         {/* Section Title */}
         <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-16">

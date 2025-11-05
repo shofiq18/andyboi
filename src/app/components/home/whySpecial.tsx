@@ -26,7 +26,7 @@ export default function WhySpecialPage() {
     //   </div>
     // </div>
 
-    <div className="flex justify-end  mt-20 relative">
+    <div className="md:flex justify-end mt-10 md:mt-24 relative">
       <div className="md:w-1/2 2xl:w-2/5">
         <Image
           src="/Why special.svg"
@@ -37,10 +37,10 @@ export default function WhySpecialPage() {
         />
       </div>
 
-      <div className="absolute md:left-10 2xl:left-90 top-10 ">
-        <div className="max-w-7xl w-full mx-auto">
+      <div className="md:absolute md:left-10 2xl:left-90 top-10 mt-10 ">
+        <div className="max-w-7xl w-full mx-auto px-6 md:px-0">
           <div className="w-full space-y-4">
-            <h1 className="text-5xl font-bold text-[#2B2B2B]]">
+            <h1 className="text-3xl md:text-5xl font-bold text-[#2B2B2B]">
               Why It&#39;s Special
             </h1>
             <h3 className="text-xl font-semibold text-[#2B2B2B]">

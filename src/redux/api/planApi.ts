@@ -56,6 +56,13 @@ export const planApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Plan"],
     }),
+    getAllUserPlans: builder.query<PlansListResponse, void>({
+      query: () => ({
+        url: "/plans",
+        method: "GET",
+      }),
+      providesTags: ["Plan"],
+    }),
 
     // Get single plan by ID
     getPlanById: builder.query<PlanResponse, string>({
@@ -99,6 +106,7 @@ export const planApi = baseApi.injectEndpoints({
 
 export const {
   useGetAllAdminPlansQuery,
+  useGetAllUserPlansQuery,
   useGetPlanByIdQuery,
   useCreatePlanMutation,
   useUpdatePlanMutation,

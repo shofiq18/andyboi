@@ -1,5 +1,6 @@
 import React from 'react';
 import { MessageCircle, Info, Lightbulb, CheckCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function BeforeYouBegin() {
   return (
@@ -88,11 +89,13 @@ export default function BeforeYouBegin() {
         </div>
 
         {/* Continue Button */}
+        <Link href="/choose-word">
         <div className="flex justify-center">
-          <button className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold px-8 py-3 rounded-lg shadow-md transition-colors duration-200">
+          <button className="bg-yellow-500 hover:bg-yellow-600 cursor-pointer text-gray-900 font-semibold px-8 py-3 rounded-lg shadow-md transition-colors duration-200">
             Continue to Question
           </button>
         </div>
+        </Link>
       </div>
     </div>
   );
