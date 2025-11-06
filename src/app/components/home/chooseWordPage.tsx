@@ -368,7 +368,7 @@ export default function StorySelectionPage() {
                 {/* PayPal Button */}
                 <button
                   onClick={() => setPaymentMethod('paypal')}
-                  className="w-full bg-[#FFC439] hover:bg-[#FFB700] text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
+                  className="w-full bg-[#E5B96C] hover:bg-[#FFB700] text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
                 >
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20.067 8.478c.492.88.556 2.014.3 3.327-.74 3.806-3.276 5.12-6.514 5.12h-.5a.805.805 0 00-.794.68l-.04.22-.63 3.993-.032.17a.804.804 0 01-.794.679H7.72a.483.483 0 01-.477-.558L7.418 20h1.518l.95-6.02h1.385c4.678 0 7.75-2.203 8.796-6.502z"/>
@@ -377,13 +377,12 @@ export default function StorySelectionPage() {
                 </button>
               </div>
             )}
-
             {/* Stripe Payment Confirmation */}
             {paymentMethod === 'stripe' && !isProcessing && (
               <div className="space-y-4">
                 <button
                   onClick={handleStripePayment}
-                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
+                  className="w-full bg-[#E5B96C] hover:bg-[#D4A24D] text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
                 >
                   <Lock className="w-5 h-5" />
                   Proceed to Stripe Checkout - ${selectedPlan.amount}
@@ -403,7 +402,7 @@ export default function StorySelectionPage() {
               <div className="space-y-4">
                 <button
                   onClick={handlePayPalPayment}
-                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
+                  className="w-full bg-[#E5B96C] hover:bg-[#D4A24D] text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
                 >
                   <Lock className="w-5 h-5" />
                   Proceed to PayPal - ${selectedPlan.amount}

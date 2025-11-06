@@ -126,7 +126,7 @@ const Navbar = () => {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#96D1C7] bg-white hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#96D1C7] bg-[#F7F4EF] hover:bg-gray-50 transition-colors"
             >
               <span className="text-sm font-medium text-[#2B2B2B]">
                 {isGuest ? "Guest" : user.name}
@@ -163,10 +163,10 @@ const Navbar = () => {
           <Link href="/login">
             <Button 
               className={`${
-                isHome 
-                  ? "bg-transparent text-[#2B2B2B] border border-[#96D1C7]" 
-                  : "text-[#2B2B2B] border border-[#96D1C7]"
-              }`} 
+                isHome
+                  ? "bg-transparent text-[#2B2B2B] border cursor-pointer border-[#96D1C7]"
+                  : "text-[#2B2B2B] bg-[#F7F4EF] border cursor-pointer hover:bg-[#96D1C7] border-[#96D1C7]"
+              }`}
               variant="outline"
             >
               Sign In
