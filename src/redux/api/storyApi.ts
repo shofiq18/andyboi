@@ -398,22 +398,6 @@ export const storyApi = baseApi.injectEndpoints({
       providesTags: (result, error, storyId) => [{ type: "Story", id: storyId }],
     }),
 
-    // Update Story
-    updateStory: builder.mutation<
-      Story,
-      { storyId: string; body: UpdateStoryRequest }
-    >({
-      query: ({ storyId, body }) => ({
-        url: `/stories/${storyId}/regenerate`,
-        method: "PUT",
-        body,
-      }),
-      invalidatesTags: (result, error, { storyId }) => [
-        { type: "Story", id: storyId },
-        { type: "Story", id: "LIST" },
-      ],
-    }),
-
     // Upload Cover Image
     uploadCover: builder.mutation<
       UploadCoverResponse,
@@ -450,7 +434,7 @@ export const storyApi = baseApi.injectEndpoints({
     regenerateStory: builder.mutation<Story, string>({
       query: (storyId) => ({
         url: `/stories/${storyId}/regenerate`,
-        method: "POST",
+        method: "PUT",
       }),
       invalidatesTags: (result, error, storyId) => [
         { type: "Story", id: storyId },
@@ -479,7 +463,6 @@ export const {
   useCreateStoryMutation,
  useGetMyStoriesQuery,
  useGetStoryByIdQuery,
-  useUpdateStoryMutation,
   useUploadCoverMutation,
   useDownloadStoryMutation,
   useRegenerateStoryMutation,
