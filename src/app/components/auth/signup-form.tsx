@@ -408,6 +408,7 @@
 
 import { useSignUpMutation } from "@/redux/api/authApi";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState, FormEvent } from "react";
 import toast from "react-hot-toast";
  // Adjust path as needed
@@ -435,6 +436,7 @@ const SignUpForm: React.FC = () => {
     password: "",
     confirmPassword: "",
   });
+  const router = useRouter();
   const [signUp, { isLoading, error }] = useSignUpMutation();
 
   // Handle input changes
@@ -468,6 +470,7 @@ const SignUpForm: React.FC = () => {
         password: "",
         confirmPassword: "",
       });
+      router.push("/login")
     } catch (err) {
       console.error("Signup failed:", err as ApiError);
     }

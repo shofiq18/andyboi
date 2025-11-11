@@ -1,3 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
+
+
+
+
+
+
 
 
 
@@ -8,8 +17,9 @@
 // "use client"
 
 // import React, { useState, useEffect } from 'react';
-// import { Lock, CheckCircle, CreditCard, Loader2, ArrowLeft } from 'lucide-react';
+// import { Lock, CheckCircle, Loader2 } from 'lucide-react';
 // import { useGetAllUserPlansQuery } from '@/redux/api/planApi';
+// import { useRouter } from 'next/navigation';
 
 // type PlanType = {
 //   id: string;
@@ -18,19 +28,14 @@
 //   amount: number;
 // };
 
-// type PaymentMethod = 'stripe' | 'paypal' | null;
-
 // export default function StorySelectionPage() {
 //   const [selectedWords, setSelectedWords] = useState<number | null>(null);
 //   const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null);
-//   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(null);
 //   const [isProcessing, setIsProcessing] = useState(false);
-//   const { data: plansResponse , isLoading } = useGetAllUserPlansQuery();
+//   const { data: plansResponse, isLoading } = useGetAllUserPlansQuery();
+//   const router = useRouter();
 
 //   const plans = plansResponse?.data ?? [];
-//   if (isLoading){
-//     <p>Loading .........</p>
-//   }
 
 //   const staticFeatures = [
 //     'Complete, professionally written life story',
@@ -50,7 +55,6 @@
 
 //   const handleWordSelection = (words: number) => {
 //     setSelectedWords(words);
-//     setPaymentMethod(null);
     
 //     const plan = plans.find(p => p.words === words);
 //     if (plan) {
@@ -58,53 +62,7 @@
 //     }
 //   };
 
-//   // Stripe Payment Handler - Calls your backend API
-//   const handleStripePayment = async () => {
-//     if (!selectedPlan) return;
-//     setIsProcessing(true);
-
-//     try {
-//       // Call your backend API to create Stripe checkout session
-//       const response = await fetch('/api/payment/stripe/create-session', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           // Add your auth token if required
-//           // 'Authorization': `Bearer ${yourAuthToken}`,
-//         },
-//         body: JSON.stringify({
-//           planId: selectedPlan.id,
-//           planName: selectedPlan.name,
-//           amount: selectedPlan.amount,
-//           words: selectedPlan.words,
-//         }),
-//       });
-
-//       if (!response.ok) {
-//         throw new Error('Failed to create payment session');
-//       }
-
-//       const data = await response.json();
-      
-//       // Backend should return { url: "stripe_checkout_url" }
-//       if (data.url) {
-//         // Redirect to Stripe Checkout
-//         window.location.href = data.url;
-//       } else if (data.sessionId) {
-//         // Alternative: if backend returns sessionId instead of url
-//         // Redirect to Stripe Checkout with session ID
-//         window.location.href = `https://checkout.stripe.com/pay/${data.sessionId}`;
-//       } else {
-//         throw new Error('Invalid response from server');
-//       }
-//     } catch (error) {
-//       console.error('Stripe payment error:', error);
-//       alert('Failed to initialize payment. Please try again.');
-//       setIsProcessing(false);
-//     }
-//   };
-
-//   // PayPal Payment Handler - Calls your backend API
+//   // PayPal Payment Handler
 //   const handlePayPalPayment = async () => {
 //     if (!selectedPlan) return;
 //     setIsProcessing(true);
@@ -131,13 +89,14 @@
 //       }
 
 //       const data = await response.json();
+//       console.log(data)
       
 //       // Backend should return { approvalUrl: "paypal_approval_url" }
 //       if (data.approvalUrl) {
 //         // Redirect to PayPal for approval
 //         window.location.href = data.approvalUrl;
 //       } else if (data.orderId) {
-//         // Alternative: if backend returns orderId, construct PayPal URL
+//         // Alternative: if backend returns orderId
 //         window.location.href = `https://www.paypal.com/checkoutnow?token=${data.orderId}`;
 //       } else {
 //         throw new Error('Invalid response from server');
@@ -148,6 +107,19 @@
 //       setIsProcessing(false);
 //     }
 //   };
+  
+
+//   // Loading state for plans
+//   if (isLoading) {
+//     return (
+//       <div className="min-h-screen bg-[#F7F4EF] flex items-center justify-center">
+//         <div className="text-center">
+//           <Loader2 className="w-12 h-12 animate-spin text-blue-900 mx-auto mb-4" />
+//           <p className="text-gray-600">Loading plans...</p>
+//         </div>
+//       </div>
+//     );
+//   }
 
 //   return (
 //     <div className="min-h-screen bg-[#F7F4EF] py-12 px-4 overflow-y-auto">
@@ -206,83 +178,23 @@
 //               ))}
 //             </div>
 
-//             {/* Payment Method Selection */}
-//             {!paymentMethod && !isProcessing && (
-//               <div className="space-y-3">
-//                 <p className="text-white text-center font-medium mb-4">
-//                   Choose Payment Method
-//                 </p>
-                
-//                 {/* Stripe Button */}
-//                 <button
-//                   onClick={() => setPaymentMethod('stripe')}
-//                   className="w-full bg-white hover:bg-gray-100 text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
-//                 >
-//                   <CreditCard className="w-5 h-5" />
-//                   Pay with Card (Stripe)
-//                 </button>
-
-//                 {/* PayPal Button */}
-//                 <button
-//                   onClick={() => setPaymentMethod('paypal')}
-//                   className="w-full bg-[#E5B96C] hover:bg-[#FFB700] text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
-//                 >
-//                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-//                     <path d="M20.067 8.478c.492.88.556 2.014.3 3.327-.74 3.806-3.276 5.12-6.514 5.12h-.5a.805.805 0 00-.794.68l-.04.22-.63 3.993-.032.17a.804.804 0 01-.794.679H7.72a.483.483 0 01-.477-.558L7.418 20h1.518l.95-6.02h1.385c4.678 0 7.75-2.203 8.796-6.502z"/>
-//                   </svg>
-//                   Pay with PayPal
-//                 </button>
-//               </div>
-//             )}
-//             {/* Stripe Payment Confirmation */}
-//             {paymentMethod === 'stripe' && !isProcessing && (
-//               <div className="space-y-4">
-//                 <button
-//                   onClick={handleStripePayment}
-//                   className="w-full bg-[#E5B96C] hover:bg-[#D4A24D] text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
-//                 >
-//                   <Lock className="w-5 h-5" />
-//                   Proceed to Stripe Checkout - ${selectedPlan.amount}
-//                 </button>
-//                 <button
-//                   onClick={() => setPaymentMethod(null)}
-//                   className="w-full bg-transparent border border-white text-white py-2 rounded-lg hover:bg-white hover:text-gray-900 transition-colors flex items-center justify-center gap-2"
-//                 >
-//                   <ArrowLeft className="w-4 h-4" />
-//                   Back to Payment Options
-//                 </button>
-//               </div>
-//             )}
-
-//             {/* PayPal Payment Confirmation */}
-//             {paymentMethod === 'paypal' && !isProcessing && (
-//               <div className="space-y-4">
-//                 <button
-//                   onClick={handlePayPalPayment}
-//                   className="w-full bg-[#E5B96C] hover:bg-[#D4A24D] text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
-//                 >
-//                   <Lock className="w-5 h-5" />
-//                   Proceed to PayPal - ${selectedPlan.amount}
-//                 </button>
-//                 <button
-//                   onClick={() => setPaymentMethod(null)}
-//                   className="w-full bg-transparent border border-white text-white py-2 rounded-lg hover:bg-white hover:text-gray-900 transition-colors flex items-center justify-center gap-2"
-//                 >
-//                   <ArrowLeft className="w-4 h-4" />
-//                   Back to Payment Options
-//                 </button>
-//               </div>
-//             )}
-
-//             {/* Processing State */}
-//             {isProcessing && (
+//             {/* PayPal Payment Button */}
+//             {!isProcessing ? (
+//               <button
+//                 onClick={handlePayPalPayment}
+//                 className="w-full bg-[#E5B96C] hover:bg-[#D4A24D] text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
+//               >
+//                 <Lock className="w-5 h-5" />
+//                 Pay with PayPal - ${selectedPlan.amount}
+//               </button>
+//             ) : (
 //               <div className="space-y-4">
 //                 <div className="w-full bg-gray-400 text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2">
 //                   <Loader2 className="w-5 h-5 animate-spin" />
-//                   Redirecting to payment...
+//                   Redirecting to PayPal...
 //                 </div>
 //                 <p className="text-white text-center text-sm">
-//                   Please wait while we redirect you to the payment page
+//                   Please wait while we redirect you to PayPal
 //                 </p>
 //               </div>
 //             )}
@@ -304,18 +216,14 @@
 
 
 
-
-
-
-
-
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
 import { Lock, CheckCircle, Loader2 } from 'lucide-react';
 import { useGetAllUserPlansQuery } from '@/redux/api/planApi';
+import { useCreatePaymentMutation } from '@/redux/api/paymentApi';
 import { useRouter } from 'next/navigation';
+import { useGetMe } from '@/hooks/useGetMe';
 
 type PlanType = {
   id: string;
@@ -327,10 +235,12 @@ type PlanType = {
 export default function StorySelectionPage() {
   const [selectedWords, setSelectedWords] = useState<number | null>(null);
   const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const { data: plansResponse, isLoading } = useGetAllUserPlansQuery();
+  const { data: plansResponse, isLoading: isLoadingPlans } = useGetAllUserPlansQuery();
+  const [createPayment, { isLoading: isProcessing }] = useCreatePaymentMutation();
+  const { user } = useGetMe();
   const router = useRouter();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const plans = plansResponse?.data ?? [];
 
   const staticFeatures = [
@@ -342,10 +252,12 @@ export default function StorySelectionPage() {
 
   // Set default plan (Basic) on mount
   useEffect(() => {
-    const basicPlan = plans.find(p => p.name === 'Basic');
-    if (basicPlan) {
-      setSelectedWords(basicPlan.words);
-      setSelectedPlan(basicPlan);
+    if (plans.length > 0) {
+      const basicPlan = plans.find(p => p.name === 'Basic');
+      if (basicPlan) {
+        setSelectedWords(basicPlan.words);
+        setSelectedPlan(basicPlan);
+      }
     }
   }, [plans]);
 
@@ -358,60 +270,96 @@ export default function StorySelectionPage() {
     }
   };
 
-  // PayPal Payment Handler
+  // PayPal Payment Handler with RTK Query
   const handlePayPalPayment = async () => {
-    if (!selectedPlan) return;
-    setIsProcessing(true);
+    // Check if plan is selected
+    if (!selectedPlan) {
+      alert('Please select a plan first');
+      return;
+    }
+
+    // Check if user is logged in and has email
+    if (!user?.email) {
+      alert('Please login to continue with payment');
+      router.push('/login'); // Redirect to login page
+      return;
+    }
 
     try {
-      // Call your backend API to create PayPal order
-      const response = await fetch('/api/payment/paypal/create-order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // Add your auth token if required
-          // 'Authorization': `Bearer ${yourAuthToken}`,
-        },
-        body: JSON.stringify({
+      console.log('Creating payment with:', {
+        planId: selectedPlan.id,
+        email: user.email,
+      });
+
+      // Call API using RTK Query mutation
+      const response = await createPayment({
+        planId: selectedPlan.id,
+        email: user.email,
+      }).unwrap();
+
+      console.log('Payment Response:', response);
+
+      // Check if payment session created successfully
+      if (response.success && response.data?.approvalUrl) {
+        // Store payment info in localStorage for verification after return
+        localStorage.setItem('pendingPayment', JSON.stringify({
+          orderId: response.data.orderId,
+          paymentId: response.data.paymentId,
           planId: selectedPlan.id,
           planName: selectedPlan.name,
           amount: selectedPlan.amount,
           words: selectedPlan.words,
-        }),
-      });
+          timestamp: new Date().toISOString(),
+        }));
 
-      if (!response.ok) {
-        throw new Error('Failed to create PayPal order');
-      }
+        console.log('Redirecting to PayPal:', response.data.approvalUrl);
 
-      const data = await response.json();
-      console.log(data)
-      
-      // Backend should return { approvalUrl: "paypal_approval_url" }
-      if (data.approvalUrl) {
-        // Redirect to PayPal for approval
-        window.location.href = data.approvalUrl;
-      } else if (data.orderId) {
-        // Alternative: if backend returns orderId
-        window.location.href = `https://www.paypal.com/checkoutnow?token=${data.orderId}`;
+        // Redirect to PayPal
+        window.location.href = response.data.approvalUrl;
       } else {
-        throw new Error('Invalid response from server');
+        throw new Error(response.message || 'Invalid response from server');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('PayPal payment error:', error);
-      alert('Failed to initialize PayPal payment. Please try again.');
-      setIsProcessing(false);
+      
+      // Show user-friendly error message
+      const errorMessage = error?.data?.message 
+        || error?.message 
+        || 'Failed to initialize PayPal payment. Please try again.';
+      
+      alert(errorMessage);
     }
   };
-  
 
   // Loading state for plans
-  if (isLoading) {
+  if (isLoadingPlans) {
     return (
       <div className="min-h-screen bg-[#F7F4EF] flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 animate-spin text-blue-900 mx-auto mb-4" />
           <p className="text-gray-600">Loading plans...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // No plans available
+  if (plans.length === 0) {
+    return (
+      <div className="min-h-screen bg-[#F7F4EF] flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            No Plans Available
+          </h2>
+          <p className="text-gray-600 mb-6">
+            Please contact support or try again later.
+          </p>
+          <button
+            onClick={() => router.push('/')}
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+          >
+            Go to Homepage
+          </button>
         </div>
       </div>
     );
@@ -427,7 +375,7 @@ export default function StorySelectionPage() {
 
         {/* Word Selection Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-          {plans?.map((plan) => (
+          {plans.map((plan) => (
             <button
               key={plan.id}
               onClick={() => handleWordSelection(plan.words)}
@@ -478,10 +426,14 @@ export default function StorySelectionPage() {
             {!isProcessing ? (
               <button
                 onClick={handlePayPalPayment}
-                className="w-full bg-[#E5B96C] hover:bg-[#D4A24D] text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
+                disabled={!user?.email}
+                className="w-full bg-[#E5B96C] hover:bg-[#D4A24D] disabled:bg-gray-400 disabled:cursor-not-allowed text-gray-900 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md"
               >
                 <Lock className="w-5 h-5" />
-                Pay with PayPal - ${selectedPlan.amount}
+                {user?.email 
+                  ? `Pay with PayPal - $${selectedPlan.amount}`
+                  : 'Please Login to Pay'
+                }
               </button>
             ) : (
               <div className="space-y-4">
@@ -493,6 +445,13 @@ export default function StorySelectionPage() {
                   Please wait while we redirect you to PayPal
                 </p>
               </div>
+            )}
+
+            {/* Login Hint */}
+            {!user?.email && (
+              <p className="text-white text-center text-sm mt-4">
+                You need to be logged in to make a payment
+              </p>
             )}
           </div>
         )}

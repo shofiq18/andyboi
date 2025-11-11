@@ -1,8 +1,10 @@
 // "use client";
 // import React, { useState } from "react";
 // import { ChevronLeft, ChevronRight } from "lucide-react";
-// import { useGetMe } from "@/hooks/useGetMe";
 // import Image from "next/image";
+// import { useSearchParams } from "next/navigation";
+// import { useCreateStoryMutation, useUpdateStoryMutation } from "@/redux/api/storyApi";
+// import toast from "react-hot-toast";
 
 // interface Question {
 //   id: number;
@@ -234,7 +236,11 @@
 //   const [skippedCount, setSkippedCount] = useState(0);
 //   const [wordCount, setWordCount] = useState(0);
 //   const [showError, setShowError] = useState(false);
-//   const { user } = useGetMe();
+//   const searchParams = useSearchParams();
+//   const storyId = searchParams.get("storyId") ?? ""; // "abc-123-xyz"
+
+//   // Use mutation
+//   const [createStory,] = useCreateStoryMutation();
 
 //   const currentQuestion = questions[currentQuestionIndex];
 //   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
@@ -324,28 +330,104 @@
 //     }
 //   };
 
-//   const handleSubmit = () => {
-//     // Prepare form data for backend
-//     const formData = {
-//       name: name,
-//       dateOfBirth: dateOfBirth,
-//       placeOfBirth: placeOfBirth,
-//       questions: questions
-//         .map((q) => ({
-//           id: q.id,
-//           category: q.category,
-//           question: q.question,
-//           answer: answers[q.id] || "",
-//         }))
-//         .filter((q) => q.answer.trim()), // Only include answered questions
-//     };
+//   // const handleSubmit = async () => {
+//   //   // Build storyElements array in the exact format backend needs
+//   //   const storyElements = [
+//   //     {
+//   //       question: "Name?",
+//   //       answer: name,
+//   //     },
+//   //     {
+//   //       question: "Date of Birth?",
+//   //       answer: dateOfBirth,
+//   //     },
+//   //     {
+//   //       question: "Place of Birth?",
+//   //       answer: placeOfBirth,
+//   //     },
+//   //     // Add all answered questions
+//   //     ...questions
+//   //       .filter((q) => answers[q.id]?.trim()) // Only answered questions
+//   //       .map((q) => ({
+//   //         question: q.question,
+//   //         answer: answers[q.id],
+//   //       })),
+//   //   ];
 
-//     console.log("Form Data for Backend:", JSON.stringify(formData, null, 2));
+//   //   const formData = {
+//   //     storyElements: storyElements,
+//   //   };
 
-//     // Here you would make your API call
-//     // dispatch(submitStory(formData))
-//   };
+//   //   console.log("Form Data for Backend:", JSON.stringify(formData, null, 2));
 
+//   //   const response = await createStory({
+//   //     storyId: storyId, // ← From URL param
+//   //     body: formData, // ← User's answers
+//   //   }).unwrap();
+//   //   console.log("api response ", response)
+//   //   if (response.success) {
+//   //     toast.success("Genarating your story in AI please wait ");
+//   //   } else {
+//   //     toast.error("failed the creating story");
+//   //   }
+
+//   //   // Here you would make your API call
+//   //   // Example:
+//   //   // fetch('/api/story/create', {
+//   //   //   method: 'POST',
+//   //   //   headers: { 'Content-Type': 'application/json' },
+//   //   //   body: JSON.stringify(formData)
+//   //   // });
+//   // };
+
+//   const handleSubmit = async () => {
+//   // Build storyElements array
+//   const storyElements = [
+//     { question: "Name?", answer: name },
+//     { question: "Date of Birth?", answer: dateOfBirth },
+//     { question: "Place of Birth?", answer: placeOfBirth },
+//     ...questions
+//       .filter((q) => answers[q.id]?.trim())
+//       .map((q) => ({
+//         question: q.question,
+//         answer: answers[q.id],
+//       })),
+//   ];
+
+//   const formData = { storyElements };
+
+//   console.log("Sending to API:", JSON.stringify(formData, null, 2));
+
+//   try {
+//     const response = await createStory({
+//       storyId: storyId,
+//       body: formData,
+//     }).unwrap();
+
+//     console.log("API Success Response:", response);
+
+//     // Show backend's success message if available
+//     if (response?.success) {
+//       toast.success(
+//         response?.message || "Generating your story in AI, please wait..."
+//       );
+//     } else {
+//       toast.error(response?.message || "Failed to create story");
+//     }
+//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   } catch (error: any) {
+//     console.error("API Error:", error);
+
+//     // RTK Query error structure
+//     const errorMessage =
+//       error?.data?.message ||
+//       error?.data?.error ||
+//       error?.message ||
+//       "Something went wrong. Please try again.";
+
+//     toast.error(errorMessage);
+//   }
+// };
 //   if (showIntro) {
 //     return (
 //       <div className="bg-[#F7F4EF] md:h-[calc(89vh-4rem)] flex items-center justify-center p-4">
@@ -497,8 +579,8 @@
 //               rows={4}
 //             />
 //             <span className="text-sm text-slate-600">
-//             {wordCount} / 150 words
-//           </span>
+//               {wordCount} / 150 words
+//             </span>
 //           </div>
 //         </div>
 
@@ -531,7 +613,6 @@
 //         </div>
 
 //         <div className="text-center text-slate-600">
-          
 //           <p>
 //             You can skip up to 5 questions. Remaining required:{" "}
 //             {remainingRequired > 0 ? remainingRequired : 0}
@@ -542,34 +623,15 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 "use client";
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useCreateStoryMutation } from "@/redux/api/storyApi";
+import toast from "react-hot-toast";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment } from "react";
 
 interface Question {
   id: number;
@@ -791,6 +853,120 @@ const questions: Question[] = [
   },
 ];
 
+// Loading Modal Component
+interface LoadingModalProps {
+  open: boolean;
+  storyId: string;
+  isSuccess: boolean;
+}
+
+function LoadingModal({ open, storyId, isSuccess }: LoadingModalProps) {
+  const router = useRouter();
+
+  const handlePreview = () => {
+    router.push(`/preview-story?storyId=${storyId}`);
+  };
+
+  return (
+    <Transition appear show={open} as={Fragment}>
+      <Dialog as="div" className="relative z-50" onClose={() => {}}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black/30" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-12 text-center align-middle shadow-xl transition-all">
+                {/* Custom Spinner Animation */}
+                {!isSuccess && (
+                  <div className="relative mx-auto h-24 w-24 mb-6">
+                    {/* Top golden dot */}
+                    <div
+                      className="absolute top-0 left-1/2 -translate-x-1/2 w-6 h-6 bg-[#E5B96C] rounded-full animate-pulse"
+                      style={{ animationDelay: "0s" }}
+                    />
+
+                    {/* Left blue dot */}
+                    <div
+                      className="absolute top-1/2 left-0 -translate-y-1/2 w-6 h-6 bg-[#314B79] rounded-full animate-pulse"
+                      style={{ animationDelay: "0.2s" }}
+                    />
+
+                    {/* Right blue dot */}
+                    <div
+                      className="absolute top-1/2 right-0 -translate-y-1/2 w-6 h-6 bg-[#314B79] rounded-full animate-pulse"
+                      style={{ animationDelay: "0.4s" }}
+                    />
+
+                    {/* Bottom golden dot */}
+                    <div
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-6 bg-[#E5B96C] rounded-full animate-pulse"
+                      style={{ animationDelay: "0.6s" }}
+                    />
+                  </div>
+                )}
+
+                {/* Success Icon */}
+                {isSuccess && (
+                  <div className="flex flex-col items-center gap-4 mb-6">
+                    <svg
+                      className="h-16 w-16 text-green-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                )}
+
+                <Dialog.Title
+                  as="h3"
+                  className="text-2xl font-bold text-[#314B79]"
+                >
+                  {isSuccess ? "Ready!" : "Creating Your Story...."}
+                </Dialog.Title>
+
+                {/* Preview button */}
+                {isSuccess && (
+                  <button
+                    onClick={handlePreview}
+                    className="mt-8 w-full rounded-lg bg-[#E5B96C] px-6 py-3 text-lg font-medium text-black transition-colors hover:bg-amber-400"
+                  >
+                    Preview Story
+                  </button>
+                )}
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
+  );
+}
+
 export default function LifeStoryApp() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
@@ -801,7 +977,13 @@ export default function LifeStoryApp() {
   const [skippedCount, setSkippedCount] = useState(0);
   const [wordCount, setWordCount] = useState(0);
   const [showError, setShowError] = useState(false);
- 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalSuccess, setModalSuccess] = useState(false);
+
+  const searchParams = useSearchParams();
+  const storyId = searchParams.get("storyId") ?? "";
+
+  const [createStory, { isLoading }] = useCreateStoryMutation();
 
   const currentQuestion = questions[currentQuestionIndex];
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
@@ -820,7 +1002,6 @@ export default function LifeStoryApp() {
   const handleNext = () => {
     const currentAnswer = answers[currentQuestion.id]?.trim();
 
-    // Check if question is being skipped
     if (!currentAnswer) {
       if (skippedCount >= 5) {
         setShowError(true);
@@ -833,11 +1014,9 @@ export default function LifeStoryApp() {
 
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      // Update word count for next question
       const nextAnswer = answers[questions[currentQuestionIndex + 1].id] || "";
       setWordCount(countWords(nextAnswer));
     } else {
-      // Check if at least 24 questions are answered
       if (answeredCount < 24) {
         setShowError(true);
         return;
@@ -877,8 +1056,6 @@ export default function LifeStoryApp() {
 
   const handleAnswerChange = (value: string) => {
     const words = countWords(value);
-
-    // Limit to 150 words
     if (words <= 150) {
       setAnswers({ ...answers, [currentQuestion.id]: value });
       setWordCount(words);
@@ -891,43 +1068,47 @@ export default function LifeStoryApp() {
     }
   };
 
-  const handleSubmit = () => {
-    // Build storyElements array in the exact format backend needs
+  const handleSubmit = async () => {
     const storyElements = [
-      {
-        question: "Name?",
-        answer: name
-      },
-      {
-        question: "Date of Birth?",
-        answer: dateOfBirth
-      },
-      {
-        question: "Place of Birth?",
-        answer: placeOfBirth
-      },
-      // Add all answered questions
+      { question: "Name?", answer: name },
+      { question: "Date of Birth?", answer: dateOfBirth },
+      { question: "Place of Birth?", answer: placeOfBirth },
       ...questions
-        .filter(q => answers[q.id]?.trim()) // Only answered questions
-        .map(q => ({
+        .filter((q) => answers[q.id]?.trim())
+        .map((q) => ({
           question: q.question,
-          answer: answers[q.id]
-        }))
+          answer: answers[q.id],
+        })),
     ];
 
-    const formData = {
-      storyElements: storyElements
-    };
+    const formData = { storyElements };
+    console.log("Sending to API:", JSON.stringify(formData, null, 2));
 
-    console.log("Form Data for Backend:", JSON.stringify(formData, null, 2));
+    setModalOpen(true);
+    setModalSuccess(false);
 
-    // Here you would make your API call
-    // Example:
-    // fetch('/api/story/create', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(formData)
-    // });
+    try {
+      const response = await createStory({
+        storyId: storyId,
+        body: formData,
+      }).unwrap();
+
+      console.log("API Success:", response);
+      setModalSuccess(true);
+      toast.success(
+        response?.message || "Generating your story in AI, please wait..."
+      );
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error("API Error:", error);
+      const errMsg =
+        error?.data?.message ||
+        error?.data?.error ||
+        error?.message ||
+        "Something went wrong. Please try again.";
+      toast.error(errMsg);
+      setModalOpen(false);
+    }
   };
 
   if (showIntro) {
@@ -1044,9 +1225,16 @@ export default function LifeStoryApp() {
           </div>
         </div>
 
+        {/* Loading / Success Modal */}
+        <LoadingModal
+          open={modalOpen}
+          storyId={storyId}
+          isSuccess={modalSuccess}
+        />
+
         <div className="mb-8">
-          <div className=" flex justify-center items-center w-full   text-center mb-6 relative ">
-            <span className=" px-6 py-2  rounded-lg text-xl font-medium text-[#314B79] ">
+          <div className="flex justify-center items-center w-full text-center mb-6 relative">
+            <span className="px-6 py-2 rounded-lg text-xl font-medium text-[#314B79]">
               {currentQuestion.category}
             </span>
             <div className="absolute bottom-0 inset-x-90 h-0.5 bg-gradient-to-r from-transparent via-[#314B79] to-transparent"></div>
@@ -1081,8 +1269,8 @@ export default function LifeStoryApp() {
               rows={4}
             />
             <span className="text-sm text-slate-600">
-            {wordCount} / 150 words
-          </span>
+              {wordCount} / 150 words
+            </span>
           </div>
         </div>
 
@@ -1107,15 +1295,28 @@ export default function LifeStoryApp() {
 
           <button
             onClick={handleNext}
-            className="flex items-center gap-2 px-8 py-3 bg-[#E5B96C] hover:bg-amber-400 text-black font-medium rounded-lg transition-colors"
+            disabled={isLoading || modalOpen}
+            className={`
+              flex items-center gap-2 px-8 py-3 rounded-lg font-medium transition-colors
+              ${
+                isLoading || modalOpen
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-[#E5B96C] hover:bg-amber-400 text-black"
+              }
+            `}
           >
-            {currentQuestionIndex === questions.length - 1 ? "Submit" : "Next"}
-            <ChevronRight size={20} />
+            {isLoading || modalOpen ? (
+              <>Submitting...</>
+            ) : currentQuestionIndex === questions.length - 1 ? (
+              "Submit"
+            ) : (
+              "Next"
+            )}
+            {!(isLoading || modalOpen) && <ChevronRight size={20} />}
           </button>
         </div>
 
         <div className="text-center text-slate-600">
-          
           <p>
             You can skip up to 5 questions. Remaining required:{" "}
             {remainingRequired > 0 ? remainingRequired : 0}

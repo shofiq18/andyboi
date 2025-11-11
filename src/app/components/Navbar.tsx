@@ -142,13 +142,19 @@ const Navbar = () => {
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                 {!isGuest && (
-                  <Link
+                  <><Link
                     href="/my-story"
                     onClick={() => setIsDropdownOpen(false)}
                     className="block px-4 py-2 text-sm text-[#2B2B2B] hover:bg-gray-100 transition-colors"
                   >
                     My Story
-                  </Link>
+                  </Link><Link
+                    href="/my-payments"
+                    onClick={() => setIsDropdownOpen(false)}
+                    className="block px-4 py-2 text-sm text-[#2B2B2B] hover:bg-gray-100 transition-colors"
+                  >
+                      My Payments
+                    </Link></>
                 )}
                 <button
                   onClick={handleLogout}
