@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Search, Image } from 'lucide-react';
+import React from 'react';
+import { Search, } from 'lucide-react';
 
 // ==================== STORIES PAGE ====================
 export function StoriesPage() {

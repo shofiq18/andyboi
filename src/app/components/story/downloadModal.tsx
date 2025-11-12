@@ -26,26 +26,18 @@ export default function DownloadModal({ isOpen, onClose, onConfirm, isLoading = 
         </div>
 
         {/* Content */}
-        <div className="px-6 pb-8 text-center flex flex-col items-center">
+        <div className="px-6 pb-10 text-center flex flex-col items-center">
           {/* Download Icon Circle */}
           <div className="mb-6 relative">
             <svg width="120" height="120" viewBox="0 0 120 120" className="relative z-10">
               {/* Decorative clouds */}
-              <path
-                d="M 20 50 Q 15 50 15 55 Q 15 60 20 60 L 30 60 Q 25 65 25 70 Q 25 78 32 78 Q 38 78 40 70 Q 45 72 50 72 Q 58 72 58 65 Q 60 58 55 55 Q 50 50 45 50"
-                fill="#D4C5F9"
-                opacity="0.8"
-              />
-              <path
-                d="M 80 40 Q 75 40 75 45 Q 75 50 80 50 L 90 50 Q 88 55 88 60 Q 88 66 93 66 Q 99 66 100 60"
-                fill="#D4C5F9"
-                opacity="0.6"
-              />
+             
+              
             </svg>
 
             {/* Main Download Icon */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-b from-blue-600 to-blue-700 flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-b from-blue-900 to-blue-900 flex items-center justify-center shadow-lg">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
@@ -56,32 +48,11 @@ export default function DownloadModal({ isOpen, onClose, onConfirm, isLoading = 
                 </svg>
               </div>
             </div>
-
-            {/* Hand illustration below */}
-            <div className="mt-16 flex justify-center">
-              <svg width="100" height="80" viewBox="0 0 100 80" className="mt-4">
-                {/* Hand receiving download */}
-                <g>
-                  {/* Palm */}
-                  <ellipse cx="50" cy="55" rx="25" ry="20" fill="#F4C4A0" />
-                  {/* Thumb */}
-                  <ellipse cx="30" cy="48" rx="8" ry="12" fill="#F4C4A0" transform="rotate(-25 30 48)" />
-                  {/* Fingers */}
-                  <rect x="38" y="25" width="6" height="32" fill="#F4C4A0" rx="3" />
-                  <rect x="48" y="20" width="6" height="37" fill="#F4C4A0" rx="3" />
-                  <rect x="58" y="25" width="6" height="32" fill="#F4C4A0" rx="3" />
-                </g>
-              </svg>
-            </div>
+           
           </div>
-
-          {/* Decorative plants */}
-          <div className="absolute bottom-24 left-8 text-green-400 text-3xl opacity-60">🌿</div>
-          <div className="absolute bottom-24 right-8 text-blue-300 text-3xl opacity-60">🌱</div>
-
           {/* Text Content */}
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Ready to Download?</h2>
-          <p className="text-gray-600 text-sm mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Ready to Download?</h2>
+          <p className="text-gray-600 text-base mb-20">
             Your story will be downloaded as a PDF file with all your photos and content.
           </p>
 
@@ -96,7 +67,7 @@ export default function DownloadModal({ isOpen, onClose, onConfirm, isLoading = 
             <button
               onClick={onConfirm}
               disabled={isLoading}
-              className="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
+              className="flex-1 px-4 py-2.5 bg-[#314B79] hover:bg-[#4A6FA5] disabled:bg-blue-400 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <>

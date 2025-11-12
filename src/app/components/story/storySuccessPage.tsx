@@ -16,7 +16,7 @@ interface PaymentInfo {
 
 export default function PaymentSuccess() {
   const searchParams = useSearchParams();
-  const planId = searchParams.get('plan_id');
+  // const planId = searchParams.get('plan_id');
   const orderId = searchParams.get('order_id');
   const sessionId = searchParams.get('session_id');
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo | null>(null);

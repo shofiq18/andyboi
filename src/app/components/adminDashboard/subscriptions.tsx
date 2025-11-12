@@ -16,7 +16,7 @@ import {
   useGetAllAdminPlansQuery,
   useUpdatePlanMutation,
 } from "@/redux/api/planApi";
-import { useGetMe } from "@/hooks/useGetMe";
+
 
 export default function SubscriptionPlan() {
   const [isCreateMode, setIsCreateMode] = useState(false);
@@ -37,7 +37,7 @@ export default function SubscriptionPlan() {
     refetch,
   } = useGetAllAdminPlansQuery();
 
-  const { user } = useGetMe();
+ 
 
   // Real plans from API
   const plans = plansResponse?.data ?? [];
